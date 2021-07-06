@@ -1,0 +1,21 @@
+{# appel du fichier base  #}
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    une categorie
+{% endblock metaTitle %}
+
+{% block header %}
+    La catégorie {{ categorie.title}}
+{% endblock header %}
+
+{% block main %}
+    <div >
+        <article class="categorie">
+            <h2>{{ categorie.title }}</h2>
+            <p>{{ categorie.content }}</p>
+            <p>{{ categorie.id }}</p>
+        </article>
+    </div>
+{% endblock main %}
+

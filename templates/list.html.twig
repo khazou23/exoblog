@@ -1,0 +1,27 @@
+{%  extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    Les catégories
+{% endblock metaTitle %}
+
+{% block header %}
+  Liste des categories
+{% endblock header %}
+
+
+{#appel du block main #}
+{% block main %}
+    <main>
+        {# mise en place d une boucle for pour afficher tous les categories de la liste #}
+        {% for categorie in categories %}
+            <article>
+                {# Creation d un lien avec la fonction path pour rediriger vers une adresse URL #}
+                <a href={{ path('category', {'id': categorie.id}) }}>
+                    <h1>{{ categorie.title }}</h1>
+                </a>
+                    <p>{{ categorie.content}} </p>
+
+            </article>
+        {% endfor %} {# cloture de la boucle for #}
+    </main>
+{% endblock main %}

@@ -1,19 +1,44 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {# mise en place dun block pour le titre de la page  #}
+        <title>{% block metaTitle %}{% endblock metaTitle %}</title>
+        {# lien pour connecter la page CSS #}
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        <header class="header">
+            <figure class="logo">
+                <img src="{{ asset('img/syfy.png') }}" alt="logo" class="resp">
+            </figure>
+
+            <div>
+                   <p>{% block header %} {% endblock header %}</p>
+            </div>
+
+            <figure class="menu">
+                <a href="{{ path('list') }}">
+                    <img src="{{ asset('img/menu.png') }}" class="resp">
+                </a>
+            </figure>
+        </header>
+
+    {# mise en place d'un block pour le main #}
+        <main class="main">
+            {% block main %}
+            {% endblock main %}
+        </main>
+
+        <footer class="footer">
+           <div >
+                <p>Fin de page</p>
+           </div>
+        </footer>
+
     </body>
 </html>
