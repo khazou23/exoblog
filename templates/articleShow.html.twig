@@ -1,0 +1,21 @@
+{# appel du fichier base  #}
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    un article
+{% endblock metaTitle %}
+
+{% block header %}
+    L'article {{ article.title}}
+{% endblock header %}
+
+{% block main %}
+    <div >
+        <article class="categorie">
+            <h2>Titre de l'article :{{ article.title }}</h2>
+            <p>Contenu de l'article :{{ article.content}} </p>
+            <p>Date de création de l'article :{{ article.createAt | date('y-m-d') }}</p>
+        </article>
+    </div>
+{% endblock main %}
+

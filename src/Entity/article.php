@@ -3,9 +3,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
+use App\Repository\ArticleRepository;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class article
 {

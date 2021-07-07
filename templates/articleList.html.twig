@@ -1,0 +1,25 @@
+{%  extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    Les articles
+{% endblock metaTitle %}
+
+{% block header %}
+    Liste des articles
+{% endblock header %}
+
+
+{#appel du block main #}
+{% block main %}
+    <main>
+        {# mise en place d une boucle for pour afficher tous les articles de la liste #}
+        {% for article in articles %}
+            <article>
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.content}} </p>
+                <p>{{ article.createAt | date('y-m-d') }}</p>
+
+            </article>
+        {% endfor %} {# cloture de la boucle for #}
+    </main>
+{% endblock main %}
