@@ -27,6 +27,16 @@ class Category
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $n;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Category
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function getN(): ?string
+    {
+        return $this->n;
+    }
+
+    public function setN(string $n): self
+    {
+        $this->n = $n;
 
         return $this;
     }
