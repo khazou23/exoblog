@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    un tag
+{% endblock metaTitle %}
+
+
+{% block main %}
+    <div >
+        <article>
+            {# mise en place du css inline pour pouvoir utiliser une variable twig a l intérieur #}
+            <p style="background-color: {{ tag.color }}" >
+                {{ tag.title }}
+            </p>
+        </article>
+    </div>
+{% endblock main %}

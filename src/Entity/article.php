@@ -5,11 +5,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use App\Repository\ArticleRepository;
 
+//CREATION DE LA TABLE ARTICLE
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class article
 {
+// DECLARATION DES PROPRIETES (intitulé de chaque colonne)
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -42,7 +44,8 @@ class article
      */
     private $category;
 
-    //declaration getters et setters
+//DECLARATION DES GETTERS ET SETTERS
+//A NOTER : pas de setter pour l id car pas necessaire
     /**
      * @return mixed
      */
@@ -50,7 +53,6 @@ class article
     {
         return $this->id;
     }
-
 
     /**
      * @return mixed

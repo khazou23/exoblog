@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+//CREATION DE LA TABLE CATEGORY
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
 class Category
 {
+// DECLARATION DES PROPRIETES (intitulé de chaque colonne)
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -32,6 +34,8 @@ class Category
      */
     private $published;
 
+//DECLARATION DES GETTERS ET SETTERS
+//A NOTER : pas de setter pour l id car pas necessaire
     public function getId(): ?int
     {
         return $this->id;
@@ -72,5 +76,5 @@ class Category
 
         return $this;
     }
-    
+
 }
