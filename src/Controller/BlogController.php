@@ -7,6 +7,7 @@ namespace App\Controller ;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -33,7 +34,10 @@ class BlogController extends AbstractController
     public function category($id ,CategoryRepository $CategoryRepository )
     {
         $categorie= $CategoryRepository->find($id);
-
+//message d erreur si le tag mis en url n existe pas
+        if (is_null($categorie)){
+            throw new NotFoundHttpException();
+        }
         return $this->render('category.html.twig', ['categorie'=>$categorie]);
     }
 
