@@ -16,6 +16,7 @@
                 </a>
                 <p>{{ article.content}} </p>
                 <p>{{ article.createAt | date('y-m-d') }}</p>
+                <p>catégorie de l'article {{ article.category.title }}</p>
 
             </article>
         {% endfor %} {# cloture de la boucle for #}

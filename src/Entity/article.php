@@ -38,6 +38,12 @@ class article
     private $isPublished;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     */
+    private $category;
+
+    //declaration getters et setters
+    /**
      * @return mixed
      */
     public function getId()
@@ -108,6 +114,22 @@ class article
     public function setIsPublished($isPublished): void
     {
         $this->isPublished = $isPublished;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 
 

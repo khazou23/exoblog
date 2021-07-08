@@ -32,11 +32,6 @@ class Category
      */
     private $published;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $n;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -77,16 +72,5 @@ class Category
 
         return $this;
     }
-
-    public function getN(): ?string
-    {
-        return $this->n;
-    }
-
-    public function setN(string $n): self
-    {
-        $this->n = $n;
-
-        return $this;
-    }
+    
 }
