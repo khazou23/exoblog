@@ -40,9 +40,14 @@ class article
     private $isPublished;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category" , inversedBy="articles")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tag", inversedBy="articles")
+     */
+    private $tag;
 
 //DECLARATION DES GETTERS ET SETTERS
 //A NOTER : pas de setter pour l id car pas necessaire
@@ -132,6 +137,22 @@ class article
     public function setCategory($category): void
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param mixed $tag
+     */
+    public function setTag($tag): void
+    {
+        $this->tag = $tag;
     }
 
 

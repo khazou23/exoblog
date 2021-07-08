@@ -12,6 +12,11 @@
             <p style="background-color: {{ tag.color }}" >
                 {{ tag.title }}
             </p>
+
+            <h3>artciles de ce tag</h3>
+            {% for article in tag.articles %}
+                <p>{{ article.title }}</p>
+            {% endfor %}
         </article>
     </div>
 {% endblock main %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 //CREATION DE LA TABLE CATEGORY
@@ -33,6 +34,17 @@ class Category
      * @ORM\Column(type="boolean")
      */
     private $published;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\article" , mappedBy="category")
+     */
+    private $articles;
+    //creation d une methode contructeur pour pour stocker plusieurs elements dans un array
+    //une variable ne pouvant contenir qu un element
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
 //DECLARATION DES GETTERS ET SETTERS
 //A NOTER : pas de setter pour l id car pas necessaire
@@ -75,6 +87,14 @@ class Category
         $this->published = $published;
 
         return $this;
+    }
+
+    /**
+     * @return
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 
 }
