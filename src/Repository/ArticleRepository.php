@@ -20,6 +20,23 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    //ajout d une methode pour effectuer la recherche dans les articles en fonction du terme renseigné
+    public function searchByTerm($term)
+    {
+        //Déclaration de l'objet QueryBuilder (objet générateur de requete SQL)
+        $queryBuilder = $this->createQueryBuilder('article');
+
+        //Instanciation et utilisation via Doctrine de QueryBuilder pour faire la requete de recherche
+        $query = $queryBuilder
+            ->select('article')
+            ->where('article.content LIKE :term')
+            ->setParameter('term', '%'.$term.'%')
+            ->getQuery();
+
+        //Demande de renvoi de reponse à la requete
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

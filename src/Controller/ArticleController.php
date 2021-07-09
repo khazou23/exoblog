@@ -13,7 +13,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles" , name="articlelist")
      */
-//utilisation de l autowire pour instancier la classe repository pour pouvoir faire mes requête sql
+    //utilisation de l autowire pour instancier la classe repository pour pouvoir faire mes requête sql
     public function articleList(ArticleRepository $ArticleRepository)
     {
         //instruction de requete
@@ -23,8 +23,8 @@ class ArticleController extends AbstractController
             'articles'=>$articles ]);
     }
 
-//declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
-//utilisation d'une wildcard avec id pour la recherche via url
+    //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
+    //utilisation d'une wildcard avec id pour la recherche via url
     /**
      * @Route("/articles/{id}" , name="articleShow")
      */
@@ -37,6 +37,26 @@ class ArticleController extends AbstractController
         }
 
         return $this->render('articleShow.html.twig' ,['article'=>$article]);
+    }
+
+    //DECLARATION METHODE pour afficher les resultats de la requete de recherche du repository sur la page web
+    /**
+     * @Route("/search" , name="search")
+     */
+    public function search(ArticleRepository $articleRepository)
+    {
+        //declaration de la variable qui stocke le mot rechercher en dur
+        $term = 'lundi';
+
+        //declaration variable : stocker les éléments retournés via repository en fonction de $term
+        $articles = $articleRepository->searchByTerm($term);
+
+        //Methode pour renvoi de la reponse de la requete repository
+        return $this->render('articleSearch.html.twig' , [
+            'articles' => $articles,
+            'term' => $term
+        ]);
+
     }
 }
 

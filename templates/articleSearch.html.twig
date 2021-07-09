@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}
+    search
+{% endblock %}
+
+{% block main %}
+    <main>
+        {# affichage du resultat de la recherche via un mot dans le contenu #}
+        <h3>On trouve {{ articles | length }} articles correspondant à {{ term }}</h3>
+        {# mise en place d une boucle for pour afficher tous les articles de la liste #}
+        {% for article in articles %}
+            <article>
+                {# Creation d un lien avec la fonction path pour rediriger vers une adresse URL #}
+                <a href="{{ path('articleShow',{'id': article.id} ) }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+                <p>{{ article.content}} </p>
+                <p>{{ article.createAt | date('y-m-d') }}</p>
+                <p>catégorie de l'article {{ article.category.title }}</p>
+
+            </article>
+        {% endfor %} {# cloture de la boucle for #}
+    </main>
+{% endblock %}
+
+
+
