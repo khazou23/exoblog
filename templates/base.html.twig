@@ -18,6 +18,13 @@
             </figure>
 
             <nav>
+                <!--creation d un petit formulaire pour gerer la recherche utilisateur-->
+                <form action="{{ path ('search') }}" method="get">
+                    <!--creation de deux boutons un pour la saisie et un pour l envoi de la donnée-->
+                    <input type="text" name="q" placeholder="Recherche dans le contenu...">
+                    <input type="submit" value="Rechercher">
+                </form>
+
                 <ul class="menu">
                     <li class="list">
                         <a href="{{ path('articlelist') }}">Mes articles</a>

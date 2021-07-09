@@ -5,6 +5,7 @@ namespace App\Controller ;
 
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -43,10 +44,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/search" , name="search")
      */
-    public function search(ArticleRepository $articleRepository)
+    //ajout en parametre des instanciations des repository
+    public function search(ArticleRepository $articleRepository , Request $request)
     {
-        //declaration de la variable qui stocke le mot rechercher en dur
-        $term = 'lundi';
+        //declaration de la variable qui stocke le mot saisie dans le formulaire
+        $term = $request->query->get('q');
 
         //declaration variable : stocker les éléments retournés via repository en fonction de $term
         $articles = $articleRepository->searchByTerm($term);
