@@ -29,8 +29,17 @@ class ArticleRepository extends ServiceEntityRepository
         //Instanciation et utilisation via Doctrine de QueryBuilder pour faire la requete de recherche
         $query = $queryBuilder
             ->select('article')
+            //jointure entre tables(a placer sous le select en général)
+            ->leftJoin('article.category', 'category')
+            ->leftJoin('article.tag' , 'tag')
+            //mise en place des filtres de recherche
             ->where('article.content LIKE :term')
+            ->orWhere('article.title LIKE :term')
+            ->orWhere('category.title LIKE :term')
+            ->orWhere('tag.title LIKE :term')
+            //parametre de securite pour eviter qu un utisateur utilise la recherche pour des requetes SQL
             ->setParameter('term', '%'.$term.'%')
+            //generation de la requete SQL
             ->getQuery();
 
         //Demande de renvoi de reponse à la requete

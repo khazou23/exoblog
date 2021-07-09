@@ -44,7 +44,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/search" , name="search")
      */
-    //ajout en parametre des instanciations des repository
+    //ajout en parametre des instanciations des repository et de la requete
     public function search(ArticleRepository $articleRepository , Request $request)
     {
         //declaration de la variable qui stocke le mot saisie dans le formulaire
