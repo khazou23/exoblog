@@ -3,7 +3,9 @@
 
 namespace App\Controller ;
 
+use App\Entity\article;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,6 +24,30 @@ class ArticleController extends AbstractController
         //renvoi de la reponse
         return $this->render('articleList.html.twig' , [
             'articles'=>$articles ]);
+    }
+    /**
+    * @Route("/articles/insert" , name="articleInsert")
+    */
+    public function insertArticle(EntityManagerInterface $entityManager)
+    {
+        //Création d une variable qui instancie l entité Article
+        //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
+        $article = new Article();
+
+        //Utislisations des setters de l entité Article
+        //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
+        $article->setTitle('Je suis une creation du controleur');
+        $article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie d meurtre');
+        $article->setIsPublished(true);
+        $article->setCreateAt(new\DateTime('NOW'));
+
+        //Pré sauvegarde des entités crées via la methode "persist"
+        $entityManager->persist($article);
+
+        //insertion en bdd des entités crées en bdd via la methode "flush"
+        $entityManager->flush();
+
+        dump('ok'); die;
     }
 
     //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
@@ -60,6 +86,8 @@ class ArticleController extends AbstractController
         ]);
 
     }
+
+
 }
 
 
