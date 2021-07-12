@@ -97,4 +97,8 @@ class Category
         return $this->articles;
     }
 
+    public function setCategory(?Category $category)
+    {
+    }
+
 }

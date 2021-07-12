@@ -4,8 +4,12 @@
 namespace App\Controller ;
 
 use App\Entity\article;
+use App\Entity\Tag;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,7 +32,10 @@ class ArticleController extends AbstractController
     /**
     * @Route("/articles/insert" , name="articleInsert")
     */
-    public function insertArticle(EntityManagerInterface $entityManager)
+    public function insertArticle(
+        EntityManagerInterface $entityManager,
+        CategoryRepository $categoryRepository,
+        TagRepository $tagRepository )
     {
         //Création d une variable qui instancie l entité Article
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
@@ -41,15 +48,45 @@ class ArticleController extends AbstractController
         $article->setIsPublished(true);
         $article->setCreateAt(new\DateTime('NOW'));
 
+        //Recuperation de l id de categorie qu on veut ajouter à notre enregistrement
+        $category = $categoryRepository->find(2);
+        //association de categorie avec id 2 avec l entité que l on crée
+        $category->setCategory($category);
+
+        //ajout d un nouveau tag
+        $tag= new Tag();
+        $tag->setTitle('info');
+        $tag->setColor('blue');
+
+        //persist a mettre pour chaque element et flush à la fin une seule fois
+        $entityManager->persist($tag);
+        $article->setTag($tag);
+
         //Pré sauvegarde des entités crées via la methode "persist"
         $entityManager->persist($article);
-
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
 
         dump('ok'); die;
     }
 
+    //DECLARATION DE LA METHODE UPDATE
+    /**
+     * @Route("/articles/update/{id}" , name="articleUpdate")
+     */
+    public function updateArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
+        //recupération de l article en fonction de son id defini dans la wildcard
+        $article = $articleRepository->find($id);
+        //ajout de la nouvelle valeur a modifier
+        $article->setTitle('jeudi modifié');
+
+        //pré sauvegarde et envoi en bdd
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        return new Response('modification ok');
+    }
     //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
     //utilisation d'une wildcard avec id pour la recherche via url
     /**
