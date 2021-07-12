@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller ;
+namespace App\Controller\Front ;
 
 
 use App\Repository\TagRepository;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagController extends AbstractController
+class FrontTagController extends AbstractController
 {
     //DECLARATION DU ROUTING dans l annotation pour lier une URL à une portion de code grâce au composant Routing
     /**
@@ -21,7 +21,7 @@ class TagController extends AbstractController
         // declaration de la variable pour stocker les resultats de la requete
        $tags = $tagRepository->findAll();
        //renvoi de la reponse html soit la forme d une vue liée à au fichier twig correspondant
-        return $this->render('tagList.html.twig', ['tags' => $tags]);
+        return $this->render('Front/frontTagList.html.twig', ['tags' => $tags]);
 
     }
     //MISE EN PLACE D UNE WILDCARD pour ajouter dans l url ici la variable Id afin d atteindre un élément specifique
@@ -39,6 +39,6 @@ class TagController extends AbstractController
             throw new NotFoundHttpException();
         }
         //renvoi de la reponse html soit la forme d une vue liée à au fichier twig correspondant
-        return $this->render('tagShow.html.twig' , ['tag' => $tag]);
+        return $this->render('Front/frontTagShow.html.twig' , ['tag' => $tag]);
     }
 }

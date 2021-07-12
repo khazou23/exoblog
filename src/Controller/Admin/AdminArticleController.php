@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller ;
+namespace App\Controller\Admin ;
 
 use App\Entity\article;
 use App\Entity\Tag;
@@ -15,10 +15,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController extends AbstractController
+class AdminArticleController extends AbstractController
 {
     /**
-     * @Route("/articles" , name="articlelist")
+     * @Route("/admin/articles" , name="adminArticleList")
      */
     //utilisation de l autowire pour instancier la classe repository pour pouvoir faire mes requête sql
     public function articleList(ArticleRepository $ArticleRepository)
@@ -26,11 +26,11 @@ class ArticleController extends AbstractController
         //instruction de requete
         $articles = $ArticleRepository->findAll();
         //renvoi de la reponse
-        return $this->render('articleList.html.twig' , [
+        return $this->render('Admin/AdminArticleList.html.twig' , [
             'articles'=>$articles ]);
     }
     /**
-    * @Route("/articles/insert" , name="articleInsert")
+    * @Route("/admin/articles/insert" , name="adminArticleInsert")
     */
     public function insertArticle(
         EntityManagerInterface $entityManager,
@@ -67,12 +67,12 @@ class ArticleController extends AbstractController
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
 
-        return $this->redirectToRoute('articlelist') ;
+        return $this->redirectToRoute('adminArticlelist') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
     /**
-     * @Route("/articles/update/{id}" , name="articleUpdate")
+     * @Route("/admin/articles/update/{id}" , name="adminArticleUpdate")
      */
     public function updateArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
@@ -85,12 +85,12 @@ class ArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('articlelist') ;
+        return $this->redirectToRoute('adminArticlelist') ;
     }
 
     //DECLARATION DE LA METHODE DELETE
     /**
-     * @Route("/articles/delete/{id}" , name="articleDelete")
+     * @Route("admin/articles/delete/{id}" , name="adminArticleDelete")
      */
     public function deleteArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
@@ -102,13 +102,13 @@ class ArticleController extends AbstractController
         $entityManager->remove($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('articlelist') ;
+        return $this->redirectToRoute('adminArticlelist') ;
     }
 
     //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
     //utilisation d'une wildcard avec id pour la recherche via url
     /**
-     * @Route("/articles/{id}" , name="articleShow")
+     * @Route("admin/articles/{id}" , name="adminArticleShow")
      */
     public function articleShow($id , ArticleRepository $ArticleRepository)
     {
@@ -118,30 +118,8 @@ class ArticleController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        return $this->render('articleShow.html.twig' ,['article'=>$article]);
+        return $this->render('Admin/adminArticleShow.html.twig' ,['article'=>$article]);
     }
-
-    //DECLARATION METHODE pour afficher les resultats de la requete de recherche du repository sur la page web
-    /**
-     * @Route("/search" , name="search")
-     */
-    //ajout en parametre des instanciations des repository et de la requete
-    public function search(ArticleRepository $articleRepository , Request $request)
-    {
-        //declaration de la variable qui stocke le mot saisie dans le formulaire
-        $term = $request->query->get('q');
-
-        //declaration variable : stocker les éléments retournés via repository en fonction de $term
-        $articles = $articleRepository->searchByTerm($term);
-
-        //Methode pour renvoi de la reponse de la requete repository
-        return $this->render('articleSearch.html.twig' , [
-            'articles' => $articles,
-            'term' => $term
-        ]);
-
-    }
-
 
 }
 

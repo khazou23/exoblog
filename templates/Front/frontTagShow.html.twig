@@ -1,0 +1,22 @@
+{% extends 'frontBase.html.twig' %}
+
+{% block metaTitle %}
+    un tag
+{% endblock metaTitle %}
+
+
+{% block main %}
+    <div >
+        <article>
+            {# mise en place du css inline pour pouvoir utiliser une variable twig a l intérieur #}
+            <p style="background-color: {{ tag.color }}" >
+                {{ tag.title }}
+            </p>
+
+            <h3>articles de ce tag</h3>
+            {% for article in tag.articles %}
+                <p>{{ article.title }}</p>
+            {% endfor %}
+        </article>
+    </div>
+{% endblock main %}

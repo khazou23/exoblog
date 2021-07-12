@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {# mise en place dun block pour le titre de la page  #}
+        <title>{% block metaTitle %}{% endblock metaTitle %}</title>
+        {# lien pour connecter la page CSS #}
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
+    </head>
+
+    <body>
+        <header class="header">
+            <figure class="logo">
+                <img src="{{ asset('img/syfy.png') }}" alt="logo" class="resp">
+            </figure>
+
+            <p>Ma page utilisateur</p>
+
+            <nav>
+                <!--creation d un petit formulaire pour gerer la recherche utilisateur-->
+                <form action="{{ path ('search') }}" method="get">
+                    <!--creation de deux boutons un pour la saisie et un pour l envoi de la donnée-->
+                    <input type="text" name="q" placeholder="Recherche dans le contenu...">
+                    <input type="submit" value="Rechercher">
+                </form>
+
+                <ul class="menu">
+                    <li class="list">
+                        <a href="{{ path('articlelist') }}">Mes articles</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ path('tagList') }}">Mes tags</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ path('categories') }}">Mes categories</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+    {# mise en place d'un block pour le main #}
+        <main class="main">
+            {% block main %}
+            {% endblock main %}
+        </main>
+
+        <footer class="footer">
+           <div >
+                <p>Fin de page</p>
+           </div>
+        </footer>
+
+    </body>
+</html>

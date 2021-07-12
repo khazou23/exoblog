@@ -1,35 +1,34 @@
 <?php
 
 
-namespace App\Controller ;
+namespace App\Controller\Admin ;
 
 
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class BlogController extends AbstractController
+class AdminBlogController extends AbstractController
 {
 //creation de la page qui affiche toutes les categories
     //anotation pour le routing de la page
     /**
-     * @Route("/categories", name="categories")
+     * @Route("/admin/categories", name="adminCategoriesList")
      */
     public function categories(CategoryRepository $CategoryRepository)
     {
         //instructions de requete
         $categories = $CategoryRepository->findAll();
         //renvoi de la reponse avec la mise en place des connexions twig
-        return $this->render('categoriesList.html.twig' ,['categories' => $categories]);
+        return $this->render('Admin/AdminCategoriesList.html.twig' ,['categories' => $categories]);
     }
 
 //creation de la page qui affiche toutes les categories
     //anotation pour le routing de la page
     /**
-     * @Route("/category/{id}", name="category")
+     * @Route("/admin/category/{id}", name="adminCategory")
      */
     public function category($id ,CategoryRepository $CategoryRepository )
     {
@@ -38,7 +37,7 @@ class BlogController extends AbstractController
         if (is_null($categorie)){
             throw new NotFoundHttpException();
         }
-        return $this->render('category.html.twig', ['categorie'=>$categorie]);
+        return $this->render('Admin/AdminCategory.html.twig', ['categorie'=>$categorie]);
     }
 
 }

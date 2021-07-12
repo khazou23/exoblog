@@ -1,13 +1,12 @@
-{% extends 'base.html.twig' %}
+{%  extends 'Front/frontBase.html.twig' %}
 
 {% block metaTitle %}
-    search
-{% endblock %}
+    Les articles
+{% endblock metaTitle %}
 
+{#appel du block main #}
 {% block main %}
     <main>
-        {# affichage du resultat de la recherche via un mot dans le contenu #}
-        <h3>On trouve {{ articles | length }} articles correspondant à {{ term }}</h3>
         {# mise en place d une boucle for pour afficher tous les articles de la liste #}
         {% for article in articles %}
             <article>
@@ -17,12 +16,11 @@
                 </a>
                 <p>{{ article.content}} </p>
                 <p>{{ article.createAt | date('y-m-d') }}</p>
-                <p>catégorie de l'article {{ article.category.title }}</p>
+                {% if article.category %}
+                    <p>catégorie de l'article {{ article.category.title }}</p>
+                {% endif %}
 
             </article>
         {% endfor %} {# cloture de la boucle for #}
     </main>
-{% endblock %}
-
-
-
+{% endblock main %}

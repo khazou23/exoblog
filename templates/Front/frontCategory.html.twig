@@ -1,0 +1,22 @@
+{# appel du fichier base  #}
+{%  extends 'Front/frontBase.html.twig' %}
+
+{% block metaTitle %}
+    une categorie
+{% endblock metaTitle %}
+
+
+{% block main %}
+    <div >
+        <article class="categorie">
+            <h2>{{ categorie.title }}</h2>
+            <p>{{ categorie.content }}</p>
+
+            <h3>Articles de cette catégorie</h3>
+            {% for article in categorie.articles %}
+                <p>{{ article.title }}</p>
+            {% endfor %}
+        </article>
+    </div>
+{% endblock main %}
+

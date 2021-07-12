@@ -17,23 +17,18 @@
                 <img src="{{ asset('img/syfy.png') }}" alt="logo" class="resp">
             </figure>
 
-            <nav>
-                <!--creation d un petit formulaire pour gerer la recherche utilisateur-->
-                <form action="{{ path ('search') }}" method="get">
-                    <!--creation de deux boutons un pour la saisie et un pour l envoi de la donnée-->
-                    <input type="text" name="q" placeholder="Recherche dans le contenu...">
-                    <input type="submit" value="Rechercher">
-                </form>
+            <p>Ma page Administrateur </p>
 
+            <nav>
                 <ul class="menu">
                     <li class="list">
-                        <a href="{{ path('articlelist') }}">Mes articles</a>
+                        <a href="{{ path('adminArticleList') }}">Gestion des articles</a>
                     </li>
                     <li class="list">
-                        <a href="{{ path('tagList') }}">Mes tags</a>
+                        <a href="{{ path('adminTagList') }}">Gestion des tags</a>
                     </li>
                     <li class="list">
-                        <a href="{{ path('categories') }}">Mes categories</a>
+                        <a href="{{ path('adminCategoriesList') }}">Gestion des categories</a>
                     </li>
                 </ul>
             </nav>
