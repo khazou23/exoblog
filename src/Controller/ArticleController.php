@@ -44,7 +44,7 @@ class ArticleController extends AbstractController
         //Utislisations des setters de l entité Article
         //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
         $article->setTitle('Je suis une creation du controleur');
-        $article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie d meurtre');
+        $article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie de meurtre');
         $article->setIsPublished(true);
         $article->setCreateAt(new\DateTime('NOW'));
 
@@ -67,7 +67,7 @@ class ArticleController extends AbstractController
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
 
-        dump('ok'); die;
+        return $this->redirectToRoute('articlelist') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
@@ -76,7 +76,7 @@ class ArticleController extends AbstractController
      */
     public function updateArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
-        //recupération de l article en fonction de son id defini dans la wildcard
+        //recupération de l article à modifier en fonction de son id defini dans la wildcard
         $article = $articleRepository->find($id);
         //ajout de la nouvelle valeur a modifier
         $article->setTitle('jeudi modifié');
@@ -85,8 +85,26 @@ class ArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return new Response('modification ok');
+        return $this->redirectToRoute('articlelist') ;
     }
+
+    //DECLARATION DE LA METHODE DELETE
+    /**
+     * @Route("/articles/delete/{id}" , name="articleDelete")
+     */
+    public function deleteArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
+        //recupération de l article à supprimer en fonction de son id defini dans la wildcard
+        $article = $articleRepository->find($id);
+
+        //mise en place des managers de gestion des entités
+        //pour supprimer l element selectionné avec son id
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('articlelist') ;
+    }
+
     //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url
     //utilisation d'une wildcard avec id pour la recherche via url
     /**
