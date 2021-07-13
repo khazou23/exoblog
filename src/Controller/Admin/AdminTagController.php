@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminTagController extends AbstractController
 {
-    //CREATION DE LA METHODE INSERT POUR LES CATEGORIES
+    //CREATION DE LA METHODE INSERT
     /**
      * @Route("/admin/tag/insert", name="adminTagInsert")
      */
@@ -24,7 +24,7 @@ class AdminTagController extends AbstractController
         //pour créer un nouveau tag dans la bdd (ei un nouvel enregistrement dans la table visée)
         $tag = new Tag();
 
-        //AJOUT D UN TAG :Utilisation des setters de l entité Tag
+        //Utilisation des setters de l entité Tag
         //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
         $tag->setTitle('Faits divers');
         $tag->setColor('pink ');
@@ -33,7 +33,7 @@ class AdminTagController extends AbstractController
         $entityManager->persist($tag);
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
-
+        //renvoi vers la page list en fin d action
         return $this->redirectToRoute('adminTagList') ;
     }
 
@@ -52,6 +52,7 @@ class AdminTagController extends AbstractController
         $entityManager->persist($tag);
         $entityManager->flush();
 
+        //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminTagList') ;
     }
 
@@ -63,11 +64,13 @@ class AdminTagController extends AbstractController
     {
         //recupération de le tag a supprimer en fonction de son id defini dans la wildcard
         $tag = $tagRepository->find($id);
+
         //mise en place des managers de gestion des entités
         //pour supprimer l element selectionné avec son id
         $entityManager->remove($tag);
         $entityManager->flush();
 
+        //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminTagList');
     }
 
@@ -80,7 +83,8 @@ class AdminTagController extends AbstractController
     {
         // declaration de la variable pour stocker les resultats de la requete
        $tags = $tagRepository->findAll();
-       //renvoi de la reponse html soit la forme d une vue liée à au fichier twig correspondant
+
+       //renvoi de la reponse html sous la forme d une vue liée au fichier twig correspondant
         return $this->render('Admin/AdminTagList.html.twig', ['tags' => $tags]);
 
     }
@@ -94,10 +98,12 @@ class AdminTagController extends AbstractController
     {
         // declaration de la variable pour stocker les resultats de la requete
         $tag = $tagRepository->find($id);
+
         //message d erreur si le tag mis en url n existe pas
         if (is_null($tag)){
             throw new NotFoundHttpException();
         }
+
         //renvoi de la reponse html soit la forme d une vue liée à au fichier twig correspondant
         return $this->render('Admin/AdminTagShow.html.twig' , ['tag' => $tag]);
     }

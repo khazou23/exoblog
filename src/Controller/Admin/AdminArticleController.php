@@ -25,7 +25,8 @@ class AdminArticleController extends AbstractController
     {
         //instruction de requete
         $articles = $ArticleRepository->findAll();
-        //renvoi de la reponse
+
+        //renvoi de la reponse html sous la forme d une vue liée au fichier twig correspondant
         return $this->render('Admin/AdminArticleList.html.twig' , [
             'articles'=>$articles
         ]);
@@ -42,7 +43,7 @@ class AdminArticleController extends AbstractController
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
         $article = new Article();
 
-        //Utislisations des setters de l entité Article
+        //Utilisations des setters de l entité Article
         //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
         $article->setTitle('Je suis une creation du controleur');
         $article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie de meurtre');
@@ -68,6 +69,7 @@ class AdminArticleController extends AbstractController
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
 
+        //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminArticleList') ;
     }
 
@@ -86,6 +88,7 @@ class AdminArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
+        //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminArticleList') ;
     }
 
@@ -103,6 +106,7 @@ class AdminArticleController extends AbstractController
         $entityManager->remove($article);
         $entityManager->flush();
 
+        //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminArticleList') ;
     }
 
@@ -113,12 +117,14 @@ class AdminArticleController extends AbstractController
      */
     public function articleShow($id , ArticleRepository $ArticleRepository)
     {
+        // declaration de la variable pour stocker les resultats de la requete
         $article=$ArticleRepository->find($id);
         //message d erreur si le tag mis en url n existe pas
         if (is_null($article)){
             throw new NotFoundHttpException();
         }
 
+        //renvoi de la reponse html sous la forme d une vue liée au fichier twig correspondant
         return $this->render('Admin/adminArticleShow.html.twig' ,['article'=>$article]);
     }
 
