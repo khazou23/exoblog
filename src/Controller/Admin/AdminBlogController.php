@@ -23,7 +23,7 @@ class AdminBlogController extends AbstractController
     public function insertCategory(EntityManagerInterface $entityManager )
     {
         //Création d une variable qui instancie l entité Categorie
-        //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée)
+        //pour créer une nouvelle categorie dans la bdd (ei un nouvel enregistrement dans la table visée)
         $category = new Category();
 
         //Utilisation des setters de l entité Categorie

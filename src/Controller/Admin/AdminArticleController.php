@@ -5,6 +5,7 @@ namespace App\Controller\Admin ;
 
 use App\Entity\article;
 use App\Entity\Tag;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
@@ -43,34 +44,42 @@ class AdminArticleController extends AbstractController
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
         $article = new Article();
 
+        //Récupération du gabarit formulaire pour l appliquer via une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $articleForm = $this->createForm(ArticleType::class, $article);
+
+        //renvoi du formulaire sur une page vue
+        return $this->render('Admin/AdminArticleInsert.html.twig',['articleForm'=> $articleForm ->createView()] );
+
+//ancien insert sans formulaire
         //Utilisations des setters de l entité Article
         //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
-        $article->setTitle('Je suis une creation du controleur');
-        $article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie de meurtre');
-        $article->setIsPublished(true);
-        $article->setCreateAt(new\DateTime('NOW'));
+        //$article->setTitle('Je suis une creation du controleur');
+        //$article->setContent('on est lundi matin , la nuit a été toute pourrie , je hais le lundi vive garfield...envie de meurtre');
+        //$article->setIsPublished(true);
+        //$article->setCreateAt(new\DateTime('NOW'));
 
         //Recuperation de l id de categorie qu on veut ajouter à notre enregistrement
-        $category = $categoryRepository->find(2);
+        //$category = $categoryRepository->find(2);
         //association de categorie avec id 2 avec l entité que l on crée
-        $category->setCategory($category);
+        //$category->setCategory($category);
 
         //ajout d un nouveau tag
-        $tag= new Tag();
-        $tag->setTitle('info');
-        $tag->setColor('blue');
+        //$tag= new Tag();
+        //$tag->setTitle('info');
+        //$tag->setColor('blue');
 
         //persist a mettre pour chaque element et flush à la fin une seule fois
-        $entityManager->persist($tag);
-        $article->setTag($tag);
+        //$entityManager->persist($tag);
+        //$article->setTag($tag);
 
         //Pré sauvegarde des entités crées via la methode "persist"
-        $entityManager->persist($article);
+        //$entityManager->persist($article);
         //insertion en bdd des entités crées en bdd via la methode "flush"
-        $entityManager->flush();
+        //$entityManager->flush();
 
         //redirection sur une page définie en fin d'éxécution
-        return $this->redirectToRoute('adminArticleList') ;
+        //return $this->redirectToRoute('adminArticleList') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
