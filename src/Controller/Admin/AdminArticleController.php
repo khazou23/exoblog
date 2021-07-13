@@ -38,7 +38,8 @@ class AdminArticleController extends AbstractController
     public function insertArticle(
         EntityManagerInterface $entityManager,
         CategoryRepository $categoryRepository,
-        TagRepository $tagRepository )
+        TagRepository $tagRepository ,
+        Request $request)
     {
         //Création d une variable qui instancie l entité Article
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
@@ -48,7 +49,21 @@ class AdminArticleController extends AbstractController
         //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
         $articleForm = $this->createForm(ArticleType::class, $article);
 
-        //renvoi du formulaire sur une page vue
+        //mise en relation du formulaire avec les données envoyées en Post
+        $articleForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($articleForm->isSubmitted() && $articleForm->isValid() )
+        {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminArticleList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
         return $this->render('Admin/AdminArticleInsert.html.twig',['articleForm'=> $articleForm ->createView()] );
 
 //ancien insert sans formulaire
