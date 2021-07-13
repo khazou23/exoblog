@@ -16,8 +16,15 @@
                 </a>
                     <p>{{ categorie.content}} </p>
                 <p>{{ categorie.published }}</p>
+                {#lien pour la suppression ou modification de categorie  #}
+                <a href="{{ path('adminCategoryDelete', {'id' : categorie.id} ) }}">Supprimer</a>
+                <a href="{{ path('adminCategoryUpdate', {'id' : categorie.id} ) }}">Modifier</a>
 
             </article>
         {% endfor %} {# cloture de la boucle for #}
+
+        <p>
+            <a href="{{ path('adminCategoryInsert' ) }}">Ajouter une nouvelle catégorie</a>
+        </p>
     </main>
 {% endblock main %}

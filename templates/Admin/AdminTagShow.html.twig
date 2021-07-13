@@ -16,6 +16,8 @@
             <h3>articles de ce tag</h3>
             {% for article in tag.articles %}
                 <p>{{ article.title }}</p>
+                <a href="{{ path('adminTagDelete', {'id' : tag.id} ) }}">Supprimer</a>
+                <a href="{{ path('adminTagUpdate', {'id' : tag.id} ) }}">Modifier</a>
             {% endfor %}
         </article>
     </div>

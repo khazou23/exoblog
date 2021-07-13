@@ -14,13 +14,24 @@
                 <a href="{{ path('adminArticleShow',{'id': article.id} ) }}">
                     <h2>{{ article.title }}</h2>
                 </a>
-                <p>{{ article.content}} </p>
-                <p>{{ article.createAt | date('y-m-d') }}</p>
+                {# affichage de l article  #}
+                <p>Résumé : {{ article.content}} </p>
+                <p>Créé le : {{ article.createAt | date('y-m-d') }}</p>
                 {% if article.category %}
                     <p>catégorie de l'article {{ article.category.title }}</p>
                 {% endif %}
 
+                <a href="{{ path('adminArticleDelete', {'id' : article.id} ) }}">Supprimer</a>
+                <a href="{{ path('adminArticleUpdate', {'id' : article.id} ) }}">Modifier</a>
             </article>
         {% endfor %} {# cloture de la boucle for #}
+
+        <div>
+            <p>
+                <a href="{{ path('adminArticleInsert' ) }}">Ajouter un nouvel article</a>
+            </p>
+        </div>
     </main>
 {% endblock main %}
+
+

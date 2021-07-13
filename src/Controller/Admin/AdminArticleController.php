@@ -27,7 +27,8 @@ class AdminArticleController extends AbstractController
         $articles = $ArticleRepository->findAll();
         //renvoi de la reponse
         return $this->render('Admin/AdminArticleList.html.twig' , [
-            'articles'=>$articles ]);
+            'articles'=>$articles
+        ]);
     }
     /**
     * @Route("/admin/articles/insert" , name="adminArticleInsert")
@@ -67,7 +68,7 @@ class AdminArticleController extends AbstractController
         //insertion en bdd des entités crées en bdd via la methode "flush"
         $entityManager->flush();
 
-        return $this->redirectToRoute('adminArticlelist') ;
+        return $this->redirectToRoute('adminArticleList') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
@@ -85,7 +86,7 @@ class AdminArticleController extends AbstractController
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('adminArticlelist') ;
+        return $this->redirectToRoute('adminArticleList') ;
     }
 
     //DECLARATION DE LA METHODE DELETE
@@ -102,7 +103,7 @@ class AdminArticleController extends AbstractController
         $entityManager->remove($article);
         $entityManager->flush();
 
-        return $this->redirectToRoute('adminArticlelist') ;
+        return $this->redirectToRoute('adminArticleList') ;
     }
 
     //declaration de la methode pour selectionner une seul article en fonction de l'id dans l url

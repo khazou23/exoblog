@@ -11,6 +11,9 @@
             <h2>Titre de l'article :{{ article.title }}</h2>
             <p>Contenu de l'article :{{ article.content}} </p>
             <p>Date de création de l'article :{{ article.createAt | date('y-m-d') }}</p>
+            {# Liens pour la suppression ou modification de l article #}
+            <a href="{{ path('adminArticleDelete', {'id' : article.id} ) }}">Supprimer</a>
+            <a href="{{ path('adminArticleUpdate', {'id' : article.id} ) }}">Modifier</a>
         </article>
     </div>
 {% endblock main %}

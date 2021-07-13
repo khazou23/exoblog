@@ -16,6 +16,10 @@
             {% for article in categorie.articles %}
                 <p>{{ article.title }}</p>
             {% endfor %}
+
+            {#lien pour la suppression ou modification de categorie  #}
+            <a href="{{ path('adminCategoryDelete', {'id' : categorie.id} ) }}">Supprimer</a>
+            <a href="{{ path('adminCategoryUpdate', {'id' : categorie.id} ) }}">Modifier</a>
         </article>
     </div>
 {% endblock main %}

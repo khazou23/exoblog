@@ -6,14 +6,23 @@
 
 {% block main %}
     <div class="container">
-    {% for tag in tags %}
-        <article class="tag">
-            {# mise en place du css inline pour pouvoir utiliser une variable twig a l intérieur #}
-            <p style="background-color: {{ tag.color }}" >
-                {{ tag.title }}
-            </p>
-        </article>
-    {% endfor %}
+        {% for tag in tags %}
+            <article class="tag">
+                {# mise en place du css inline pour pouvoir utiliser une variable twig a l intérieur #}
+                <p style="background-color: {{ tag.color }}" >
+                    {{ tag.title }}
+                </p>
+
+                <a href="{{ path('adminTagDelete', {'id' : tag.id} ) }}">Supprimer</a>
+                <a href="{{ path('adminTagUpdate', {'id' : tag.id} ) }}">Modifier</a>
+            </article>
+        {% endfor %}
+    </div>
+
+    <div>
+        <p>
+            <a href="{{ path('adminTagInsert' ) }}">Ajouter un nouveau tag</a>
+        </p>
     </div>
 
 {% endblock %}
