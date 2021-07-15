@@ -64,6 +64,9 @@ a{
     font-size: 20px;
     color: #FFFFFF;
 }
+h2{
+    color: steelblue;
+}
 .container{
     display: flex;
     flex-wrap: wrap;
