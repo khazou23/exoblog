@@ -1,7 +1,46 @@
 {%  extends 'Admin/AdminBase.html.twig' %}
 
 {% block main %}
+        <section>
+            <h1 class="ajout" >Ajouter un nouvel article </h1>
+                {# ouverture du form (equivalent a la balise form #}
+                {{ form_start(articleForm) }}
+                    {# elements du titre  #}
 
-    {{ form(articleForm) }}
+                    <div class="form-group">
+                        {# pour rendre et customizer la partir label du titre  #}
+                        {{ form_label(articleForm.title , 'Titre de l\'article', {'label_attr':{'class':'style'}}) }}
+                        {# pour rendre et customizer la partir input du titre  #}
+                        {{ form_widget(articleForm.title , {'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    {# elements du contenu  #}
+                    <div class="form-group">
+                        {{ form_label(articleForm.content , 'Contenu de l\'article', {'label_attr':{'class':'style'}}) }}
+                        {{ form_widget(articleForm.content , {'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    {# elements de la date   #}
+                    <div class="form-group">
+                        {{ form_label(articleForm.createAt , 'Date de création de l\'article', {'label_attr':{'class':'style'}}) }}
+                        {{ form_widget(articleForm.createAt , {'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    {# elements sur la publication #}
+                    <div class="form-group">
+                        {{ form_label(articleForm.isPublished , 'Publication de l\'article', {'label_attr':{'class':'style'}}) }}
+                        {{ form_widget(articleForm.isPublished , {'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    {# elements sur le submit#}
+                    <div class="form-group">
+                        {{ form_widget(articleForm.submit, {'attr': {'class': 'form-control btn'}, 'label': 'sauvegarder'}) }}
+                    </div>
+
+                {# fermeture du form (equivalent a la balise form #}
+                 {{ form_end(articleForm) }}
+
+        </section>
+
 
 {% endblock %}

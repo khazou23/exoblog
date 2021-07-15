@@ -45,7 +45,7 @@ class AdminArticleController extends AbstractController
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
         $article = new Article();
 
-        //Récupération du gabarit formulaire pour l appliquer via une variable
+        //Récupération du gabarit formulaire pour le stocker dans une variable
         //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
         $articleForm = $this->createForm(ArticleType::class, $article);
 
