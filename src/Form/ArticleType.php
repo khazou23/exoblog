@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Category;
+use App\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -24,6 +27,14 @@ class ArticleType extends AbstractType
             ->add('isPublished', CheckboxType::class,[
                 'data' => true
             ] )
+            ->add('category',EntityType::class,[
+                'class' => Category::class ,
+                'choice_label' =>'title'
+            ])
+            ->add('tag',EntityType::class,[
+                'class' => Tag::class ,
+                'choice_label' =>'title'
+            ])
             //ajouter d une propriete submit avec la classe SubmitType pour créer le bouton  
             ->add('submit', SubmitType::class)
         ;
