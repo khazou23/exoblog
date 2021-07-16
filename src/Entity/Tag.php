@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 //CREATION DE LA TABLE TAG
 /**
@@ -22,12 +23,20 @@ class Tag
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="ce champ doit être rempli")
+     * @Assert\Length(
+     *     min=3,
+     *     max=255 ,
+     *     minMessage="Il faut au minimum un titre de 3 lettres",
+     *     maxMessage="Le nombre de caractères autorisés est dépassé")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank (message="le champ doit etre rempli")
      */
+
     private $color;
 
     /**

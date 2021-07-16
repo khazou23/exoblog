@@ -7,26 +7,48 @@
 {#appel du block main #}
 {% block main %}
     <main>
+        {# utilisation du filtre Length qui renvoie le nombre d'éléments de la séquence #}
+        <p class="nb-items">Le site dispose de  <strong>{{ articles | length }} articles </strong> dans sa base de données</p>
         {# mise en place d une boucle for pour afficher tous les articles de la liste #}
+
+        {# Mise en place d une boucle FOR pour extraire tous les articles de la BDD #}
         {% for article in articles %}
-            <article>
-                {# Creation d un lien avec la fonction path pour rediriger vers une adresse URL #}
+            <article class="article">
+                {# Creation d un lien sur le titre avec la fonction path pour rediriger
+                vers une adresse URL avec le name de la route #}
                 <a href="{{ path('adminArticleShow',{'id': article.id} ) }}">
                     <h2>{{ article.title }}</h2>
                 </a>
+
                 {# affichage de l article  #}
-                <p>Résumé : {{ article.content}} </p>
-                <p>Créé le : {{ article.createAt | date('y-m-d') }}</p>
+                <p class="detail">Créé le {{ article.createAt | date('y-m-d') }}</p>
+
+                {# Condition pour afficher la catégorie si renseignée #}
                 {% if article.category %}
-                    <p>catégorie de l'article {{ article.category.title }}</p>
+                    <p>Sa catégorie : {{ article.category.title }}</p>
                 {% endif %}
 
-                <a href="{{ path('adminArticleDelete', {'id' : article.id} ) }}">Supprimer</a>
-                <a href="{{ path('adminArticleUpdate', {'id' : article.id} ) }}">Modifier</a>
+                {# Condition pour afficher le tag si renseigné #}
+                {% if article.tag %}
+                    <p>Tag : {{ article.tag.title }}</p>
+                {% endif %}
+
+                <p class="taille">Résumé : {{ article.content}} </p>
+
+                {# Lien pour accéder à delete ou upgrade #}
+                <section class="choix">
+                    <div class="bouton left">
+                        <a href="{{ path('adminArticleDelete', {'id' : article.id} ) }}">Supprimer</a>
+                    </div>
+                    <div class="bouton right">
+                        <a href="{{ path('adminArticleUpdate', {'id' : article.id} ) }}">Modifier</a>
+                    </div>
+                </section>
+
             </article>
         {% endfor %} {# cloture de la boucle for #}
 
-        <div>
+        <div class="sauvegarde">
             <p>
                 <a href="{{ path('adminArticleInsert' ) }}">Ajouter un nouvel article</a>
             </p>

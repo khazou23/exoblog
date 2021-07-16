@@ -1,0 +1,158 @@
+/**STYLE GLOBAL**/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #00CED1;
+
+}
+
+.resp {
+    width: 100%;
+    height: auto;
+}
+.right{
+    float: right;
+}
+.left{
+    float: left;
+}
+
+/**STYLE HEADER**/
+.logo{
+    width: 100px;
+}
+.header{
+    background-color: darkcyan;
+    height: 100px;
+    color: white;
+    font-size: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.menu{
+
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list{
+    float: right;
+    margin: 30px;
+}
+
+/**STYLE BODY**/
+a{
+    text-decoration: none;
+    font-size: 20px;
+}
+h2{
+    color: #20B2AA;
+}
+.main {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-evenly;
+}
+.bouton{
+    border: solid steelblue 2px;
+    border-radius: 20px;
+    background-color: #5eb5e0;
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    padding: 10px;
+    margin: 20px;
+
+}
+.sauvegarde{
+    border: solid steelblue 2px;
+    border-radius: 20px;
+    background-color: #5eb5e0;
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    padding: 10px;
+    margin: 20px;
+
+}
+.choix{
+    width: 80%;
+    justify-content: center;
+}
+/**STYLE ARTICLE**/
+.article{
+    display: inline-block;
+    width: 40%;
+    height: 25%;
+    margin: 20px;
+    padding: 10px;
+    border: solid 2px steelblue;
+    border-radius: 20px;
+
+}
+.taille{
+    height: 20%;
+    overflow: scroll;
+}
+.nb-items{
+    color: aqua;
+}
+.detail{
+    color: #40E0D0;
+}
+/**STYLE CATEGORY**/
+.categorie{
+    text-align: center;
+    margin: 40px 0;
+    border: solid 2px darkcyan;
+}
+
+/**STYLE TAG**/
+.tag{
+    text-align: center;
+    padding: 50px;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/**STYLE INSERT ARTICLE**/
+.style{
+    color: dodgerblue;
+}
+
+.btn{
+    color: steelblue;
+    background-color: #5eb5e0;
+}
+
+.ajout{
+    color: #5eb5e0;
+}
+/**STYLE FOOTER**/
+.footer{
+    background-color: darkcyan;
+    height: 100px;
+    color: white;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,10 @@
 namespace App\Controller\Admin ;
 
 
+use App\Entity\article;
 use App\Entity\Category;
+use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,25 +23,45 @@ class AdminBlogController extends AbstractController
     /**
      * @Route("/admin/categories/insert", name="adminCategoryInsert")
      */
-    public function insertCategory(EntityManagerInterface $entityManager )
+    public function insertCategory(EntityManagerInterface $entityManager , Request $request)
     {
         //Création d une variable qui instancie l entité Categorie
         //pour créer une nouvelle categorie dans la bdd (ei un nouvel enregistrement dans la table visée)
         $category = new Category();
 
+
+        //Récupération du gabarit formulaire pour le stocker dans une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $categoryForm = $this->createForm(CategoryType::class, $category);
+
+        //mise en relation du formulaire avec les données envoyées en Post
+        $categoryForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($categoryForm->isSubmitted() && $categoryForm->isValid() )
+        {
+            $entityManager->persist($category);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminCategoriesList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
+        return $this->render('Admin/AdminCategoryInsert.html.twig',['categoryForm'=> $categoryForm ->createView()] );
+
         //Utilisation des setters de l entité Categorie
         //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
-       $category->setTitle('Historique');
-       $category->setContent('Avec stephane Bern en force ');
-       $category->setPublished(true);
-
+       //$category->setTitle('Historique');
+       //$category->setContent('Avec stephane Bern en force ');
+      // $category->setPublished(true);
         //Pré sauvegarde des entités crées via la methode "persist"
-        $entityManager->persist($category);
+       // $entityManager->persist($category);
         //insertion en bdd des entités crées en bdd via la methode "flush"
-        $entityManager->flush();
-
+       // $entityManager->flush();
         //redirection sur une page définie en fin d'éxécution
-        return $this->redirectToRoute('adminCategoriesList') ;
+       // return $this->redirectToRoute('adminCategoriesList') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
@@ -50,15 +73,35 @@ class AdminBlogController extends AbstractController
         //recupération de la categorie à modifier en fonction de son id defini dans la wildcard
         $category = $categoryRepository->find($id);
 
+        //Récupération du gabarit formulaire pour le stocker dans une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $categoryForm = $this->createForm(CategoryType::class, $category);
+
+        //mise en relation du formulaire avec les données envoyées en Post
+        $categoryForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($categoryForm->isSubmitted() && $categoryForm->isValid() )
+        {
+            $entityManager->persist($category);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminCategoriesList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
+        return $this->render('Admin/AdminCategoryInsert.html.twig',['categoryForm'=> $categoryForm ->createView()] );
+
+       //methodeen hardcodé
         //ajout de la nouvelle valeur a modifier
-        $category->setTitle('titre modifié');
-
+        //$category->setTitle('titre modifié');
         //pré sauvegarde et envoi en bdd
-        $entityManager->persist($category);
-        $entityManager->flush();
-
+        //$entityManager->persist($category);
+        //$entityManager->flush();
         //redirection sur une page définie en fin d'éxécution
-        return $this->redirectToRoute('adminCategoriesList') ;
+        //return $this->redirectToRoute('adminCategoriesList') ;
     }
 
     //CREATION DE LA METHODE DELETE

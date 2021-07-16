@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use App\Repository\ArticleRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 //CREATION DE LA TABLE ARTICLE
 /**
@@ -21,16 +22,24 @@ class article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le titre doit être renseigné")
+     * @Assert\Length(
+     *     min=6,
+     *     max=200 ,
+     *     minMessage="Il faut au minimum un titre de 3 lettres",
+     *     maxMessage="Le nombre de caractères autorisés est dépassé")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le résumé de l'article doit être renseigné")
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $createAt;
 
@@ -41,11 +50,13 @@ class article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category" , inversedBy="articles")
+     * @Assert\NotBlank (message="Le type de catégorie doit être renseigné")
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Tag", inversedBy="articles")
+     * @Assert\NotBlank(message="Le type de tag doit être renseigné")
      */
     private $tag;
 

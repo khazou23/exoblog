@@ -1,0 +1,44 @@
+{%  extends 'Admin/AdminBase.html.twig' %}
+
+{% block main %}
+    <section>
+        <h1 class="ajout " >Ajouter une nouvelle catégorie </h1>
+        {# ouverture du form (equivalent a la balise form #}
+        {{ form_start(categoryForm) }}
+        {# elements du titre  #}
+
+        <div class="form-group">
+            {# pour rendre et customizer la partir label du titre  #}
+            {{ form_label(categoryForm.title , 'Titre de la catégorie', {'label_attr':{'class':'style'}}) }}
+            {# pour rendre et customizer la partir input du titre  #}
+            {{ form_widget(categoryForm.title , {'attr':{'class':'form-control'}}) }}
+            {# pour appliquer la contrainte décidée dans le fichier form #}
+            {{ form_errors(categoryForm.title) }}
+        </div>
+
+        {# elements du contenu  #}
+        <div class="form-group">
+            {{ form_label(categoryForm.content , 'Contenu de la catégorie', {'label_attr':{'class':'style'}}) }}
+            {{ form_widget(categoryForm.content , {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(categoryForm.content) }}
+        </div>
+
+
+        {# elements sur la publication #}
+        <div class="form-group">
+            {{ form_label(categoryForm.published , 'Publication', {'label_attr':{'class':'style'}}) }}
+            {{ form_widget(categoryForm.published , {'attr':{'class':'form-control'}}) }}
+        </div>
+
+        {# elements sur le submit#}
+        <div class="form-group">
+            {{ form_widget(categoryForm.submit, {'attr': {'class': 'form-control btn'}, 'label': 'sauvegarder'}) }}
+        </div>
+
+        {# fermeture du form (equivalent a la balise form #}
+        {{ form_end(categoryForm) }}
+
+    </section>
+
+
+{% endblock %}

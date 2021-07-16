@@ -5,10 +5,13 @@ namespace App\Controller\Admin ;
 
 
 use App\Entity\Tag;
+use App\Form\CategoryType;
+use App\Form\TagType;
 use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,42 +21,83 @@ class AdminTagController extends AbstractController
     /**
      * @Route("/admin/tag/insert", name="adminTagInsert")
      */
-    public function insertTag(EntityManagerInterface $entityManager )
+    public function insertTag(EntityManagerInterface $entityManager , Request $request)
     {
         //Création d une variable qui instancie l entité Tag
         //pour créer un nouveau tag dans la bdd (ei un nouvel enregistrement dans la table visée)
         $tag = new Tag();
 
-        //Utilisation des setters de l entité Tag
-        //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
-        $tag->setTitle('Faits divers');
-        $tag->setColor('pink ');
+        //Récupération du gabarit formulaire pour le stocker dans une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $tagForm = $this->createForm(TagType::class, $tag);
 
-        //Pré sauvegarde des entités crées via la methode "persist"
-        $entityManager->persist($tag);
-        //insertion en bdd des entités crées en bdd via la methode "flush"
-        $entityManager->flush();
-        //renvoi vers la page list en fin d action
-        return $this->redirectToRoute('adminTagList') ;
+        //mise en relation du formulaire avec les données envoyées en Post
+        $tagForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($tagForm->isSubmitted() && $tagForm->isValid() )
+        {
+            $entityManager->persist($tag);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminTagList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
+        return $this->render('Admin/AdminTagInsert.html.twig',['tagForm'=> $tagForm ->createView()] );
+
+        //ETAPE EN HARDCODE
+            //Utilisation des setters de l entité Tag
+            //pour permettre l ajout de valeurs dans chaque colonne (propriété de l entité)
+           //$tag->setTitle('Faits divers');
+            //$tag->setColor('pink ');
+            //Pré sauvegarde des entités crées via la methode "persist"
+             //$entityManager->persist($tag);
+            //insertion en bdd des entités crées en bdd via la methode "flush"
+            //$entityManager->flush();
+            //renvoi vers la page list en fin d action
+            //return $this->redirectToRoute('adminTagList') ;
     }
 
     //DECLARATION DE LA METHODE UPDATE
     /**
      * @Route("/admin/tag/update/{id}" , name="adminTagUpdate")
      */
-    public function updateTag($id , TagRepository $tagRepository, EntityManagerInterface $entityManager)
+    public function updateTag($id , TagRepository $tagRepository, EntityManagerInterface $entityManager, Request $request)
     {
         //recupération du tag à modifier en fonction de son id defini dans la wildcard
         $tag = $tagRepository->find($id);
+        //Récupération du gabarit formulaire pour le stocker dans une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $tagForm = $this->createForm(TagType::class, $tag);
+
+        //mise en relation du formulaire avec les données envoyées en Post
+        $tagForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($tagForm->isSubmitted() && $tagForm->isValid() )
+        {
+            $entityManager->persist($tag);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminTagList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
+        return $this->render('Admin/AdminTagInsert.html.twig',['tagForm'=> $tagForm ->createView()] );
+
+        //methode HardCOdé
         //ajout de la nouvelle valeur a modifier
-        $tag->setColor('aqua');
-
+        //$tag->setColor('aqua');
         //pré sauvegarde et envoi en bdd
-        $entityManager->persist($tag);
-        $entityManager->flush();
-
+        //$entityManager->persist($tag);
+        //$entityManager->flush();
         //redirection sur une page définie en fin d'éxécution
-        return $this->redirectToRoute('adminTagList') ;
+       // return $this->redirectToRoute('adminTagList') ;
     }
 
     //CREATION DE LA METHODE DELETE

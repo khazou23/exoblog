@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Tag</title>
+
+{% block body %}
+    <h1>Create new Tag</h1>
+
+    {{ include('tag_type/_form.html.twig') }}
+
+    <a href="{{ path('tag_type_index') }}">back to list</a>
+{% endblock %}

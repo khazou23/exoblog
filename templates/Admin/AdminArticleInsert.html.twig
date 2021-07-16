@@ -12,36 +12,42 @@
                         {{ form_label(articleForm.title , 'Titre de l\'article', {'label_attr':{'class':'style'}}) }}
                         {# pour rendre et customizer la partir input du titre  #}
                         {{ form_widget(articleForm.title , {'attr':{'class':'form-control'}}) }}
+                        {# pour appliquer la contrainte décidée dans le fichier form #}
+                        {{ form_errors(articleForm.title) }}
                     </div>
 
                     {# elements du contenu  #}
                     <div class="form-group">
                         {{ form_label(articleForm.content , 'Contenu de l\'article', {'label_attr':{'class':'style'}}) }}
                         {{ form_widget(articleForm.content , {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(articleForm.content) }}
                     </div>
 
                     {# elements de la date   #}
                     <div class="form-group">
                         {{ form_label(articleForm.createAt , 'Date de création de l\'article', {'label_attr':{'class':'style'}}) }}
                         {{ form_widget(articleForm.createAt , {'attr':{'class':'form-control'}}) }}
-                    </div>
-
-                    {# elements sur la publication #}
-                    <div class="form-group">
-                        {{ form_label(articleForm.isPublished , 'Publication de l\'article', {'label_attr':{'class':'style'}}) }}
-                        {{ form_widget(articleForm.isPublished , {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(articleForm.createAt) }}
                     </div>
 
                     {# elements sur la categorie #}
                     <div class="form-group">
                         {{ form_label(articleForm.category , 'Catégorie de l\'article', {'label_attr':{'class':'style'}}) }}
                         {{ form_widget(articleForm.category , {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(articleForm.category) }}
                     </div>
 
                     {# elements sur la categorie #}
                     <div class="form-group">
                         {{ form_label(articleForm.tag , 'Tag de l\'article', {'label_attr':{'class':'style'}}) }}
                         {{ form_widget(articleForm.tag, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(articleForm.tag) }}
+                    </div>
+
+                    {# elements sur la publication #}
+                    <div class="form-group">
+                        {{ form_label(articleForm.isPublished , 'Publication de l\'article', {'label_attr':{'class':'style'}}) }}
+                        {{ form_widget(articleForm.isPublished , {'attr':{'class':'form-control'}}) }}
                     </div>
 
                     {# elements sur le submit#}

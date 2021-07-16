@@ -1,0 +1,37 @@
+{%  extends 'Admin/AdminBase.html.twig' %}
+
+{% block main %}
+    <section>
+        <h1 class="ajout " >Ajouter un nouveau tag </h1>
+        {# ouverture du form (equivalent a la balise form #}
+        {{ form_start(tagForm) }}
+        {# elements du titre  #}
+
+        <div class="form-group">
+            {# pour rendre et customizer la partir label du titre  #}
+            {{ form_label(tagForm.title , 'Titre du tag', {'label_attr':{'class':'style'}}) }}
+            {# pour rendre et customizer la partir input du titre  #}
+            {{ form_widget(tagForm.title , {'attr':{'class':'form-control'}}) }}
+            {# pour appliquer la contrainte décidée dans le fichier form #}
+            {{ form_errors(tagForm.title) }}
+        </div>
+
+        {# elements du contenu  #}
+        <div class="form-group">
+            {{ form_label(tagForm.color , 'couleur', {'label_attr':{'class':'style'}}) }}
+            {{ form_widget(tagForm.color , {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(tagForm.color) }}
+        </div>
+
+        {# elements sur le submit#}
+        <div class="form-group">
+            {{ form_widget(tagForm.submit, {'attr': {'class': 'form-control btn'}, 'label': 'sauvegarder'}) }}
+        </div>
+
+        {# fermeture du form (equivalent a la balise form #}
+        {{ form_end(tagForm) }}
+
+    </section>
+
+
+{% endblock %}

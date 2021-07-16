@@ -16,15 +16,24 @@
                 </a>
                     <p>{{ categorie.content}} </p>
                 <p>{{ categorie.published }}</p>
-                {#lien pour la suppression ou modification de categorie  #}
-                <a href="{{ path('adminCategoryDelete', {'id' : categorie.id} ) }}">Supprimer</a>
-                <a href="{{ path('adminCategoryUpdate', {'id' : categorie.id} ) }}">Modifier</a>
 
             </article>
+            {# Lien pour accéder à delete ou upgrade #}
+            <section class="choix">
+                <div class="bouton left">
+                    <a href="{{ path('adminCategoryDelete', {'id' : categorie.id} ) }}">Supprimer</a>
+                </div>
+                <div class="bouton right">
+                    <a href="{{ path('adminCategoryUpdate', {'id' : categorie.id} ) }}">Modifier</a>
+                </div>
+            </section>
         {% endfor %} {# cloture de la boucle for #}
 
-        <p>
-            <a href="{{ path('adminCategoryInsert' ) }}">Ajouter une nouvelle catégorie</a>
-        </p>
+        <div class="sauvegarde">
+            <p>
+                <a href="{{ path('adminCategoryInsert' ) }}">Ajouter une nouvelle catégorie</a>
+            </p>
+        </div>
+
     </main>
 {% endblock main %}
