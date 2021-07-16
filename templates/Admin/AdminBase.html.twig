@@ -41,8 +41,16 @@
 
     {# mise en place d'un block pour le main #}
         <main class="main">
+
+            {% for message in app.flashes('success') %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             {% block main %}
             {% endblock main %}
+
         </main>
 
         <footer class="footer">

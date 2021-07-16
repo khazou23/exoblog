@@ -59,6 +59,13 @@ class AdminArticleController extends AbstractController
         {
             $entityManager->persist($article);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+                'L\'article ' . $article -> getTitle() . ' a été créé '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminArticleList');
         }
@@ -119,6 +126,13 @@ class AdminArticleController extends AbstractController
         {
             $entityManager->persist($article);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+                'L\'article ' . $article -> getTitle() . ' a été modifié '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminArticleList');
         }
@@ -149,6 +163,12 @@ class AdminArticleController extends AbstractController
         //pour supprimer l element selectionné avec son id
         $entityManager->remove($article);
         $entityManager->flush();
+
+        //ajout d un message flash
+        $this ->addFlash(
+            'success',
+            'L\'article ' . $article -> getTitle() . ' a été supprimé '
+        );
 
         //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminArticleList') ;

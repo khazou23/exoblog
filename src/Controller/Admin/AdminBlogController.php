@@ -44,6 +44,13 @@ class AdminBlogController extends AbstractController
         {
             $entityManager->persist($category);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+                'La catégorie ' . $category-> getTitle() . ' a été créée '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminCategoriesList');
         }
@@ -68,7 +75,7 @@ class AdminBlogController extends AbstractController
     /**
      * @Route("/admin/category/update/{id}" , name="adminCategoryUpdate")
      */
-    public function updateCategory($id , CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
+    public function updateCategory($id , CategoryRepository $categoryRepository, EntityManagerInterface $entityManager, Request $request)
     {
         //recupération de la categorie à modifier en fonction de son id defini dans la wildcard
         $category = $categoryRepository->find($id);
@@ -87,6 +94,13 @@ class AdminBlogController extends AbstractController
         {
             $entityManager->persist($category);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+                'La catégorie ' . $category-> getTitle() . ' a été modifiée '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminCategoriesList');
         }
@@ -117,6 +131,13 @@ class AdminBlogController extends AbstractController
         //pour supprimer l element selectionné avec son id
         $entityManager->remove($category);
         $entityManager->flush();
+
+
+        //ajout d un message flash
+        $this ->addFlash(
+            'success',
+            'La catégorie ' . $category-> getTitle() . ' a été supprimée '
+        );
 
         //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminCategoriesList');

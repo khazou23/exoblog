@@ -10,6 +10,7 @@ use App\Form\TagType;
 use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,6 +42,13 @@ class AdminTagController extends AbstractController
         {
             $entityManager->persist($tag);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+            'Le tag ' . $tag -> getTitle() . ' a été créé '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminTagList');
         }
@@ -83,6 +91,13 @@ class AdminTagController extends AbstractController
         {
             $entityManager->persist($tag);
             $entityManager->flush();
+
+            //ajout d un message flash
+            $this ->addFlash(
+                'success',
+                'Le tag ' . $tag -> getTitle() . ' a été modifié '
+            );
+
             //si ok on renvoi sur la page list pour voir le nouvel article
             return $this->redirectToRoute('adminTagList');
         }
@@ -113,6 +128,12 @@ class AdminTagController extends AbstractController
         //pour supprimer l element selectionné avec son id
         $entityManager->remove($tag);
         $entityManager->flush();
+
+        //ajout d un message flash
+        $this ->addFlash(
+            'success',
+            'Le tag ' . $tag -> getTitle() . ' a été supprimé'
+        );
 
         //redirection sur une page définie en fin d'éxécution
         return $this->redirectToRoute('adminTagList');
