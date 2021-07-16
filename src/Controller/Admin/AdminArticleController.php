@@ -101,19 +101,39 @@ class AdminArticleController extends AbstractController
     /**
      * @Route("/admin/articles/update/{id}" , name="adminArticleUpdate")
      */
-    public function updateArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    public function updateArticle($id , ArticleRepository $articleRepository, EntityManagerInterface $entityManager, Request $request)
     {
         //recupération de l article à modifier en fonction de son id defini dans la wildcard
         $article = $articleRepository->find($id);
+        //Récupération du gabarit formulaire pour le stocker dans une variable
+        //en parametre : instanciation du gabarit et nom de l entité visée ou de celle à créer
+        $articleForm = $this->createForm(ArticleType::class, $article);
+
+        //mise en relation du formulaire avec les données envoyées en Post
+        $articleForm->handleRequest($request);
+
+        //mise en place d une condition pour vérifier la validité du formulaire  au niveau de la saisie des champs
+        //et le bon envoi des données en post
+        // si les deux conditions sont ok alors l enregistrement en bdd s effectue
+        if($articleForm->isSubmitted() && $articleForm->isValid() )
+        {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            //si ok on renvoi sur la page list pour voir le nouvel article
+            return $this->redirectToRoute('adminArticleList');
+        }
+
+        //renvoi du formulaire sur une page vue si le formulaire n est pas validé
+        return $this->render('Admin/AdminArticleInsert.html.twig',['articleForm'=> $articleForm ->createView()] );
+
+    //methode hardcodé
         //ajout de la nouvelle valeur a modifier
-        $article->setTitle('jeudi modifié');
-
+        //$article->setTitle('jeudi modifié');
         //pré sauvegarde et envoi en bdd
-        $entityManager->persist($article);
-        $entityManager->flush();
-
+        //$entityManager->persist($article);
+        //$entityManager->flush();
         //redirection sur une page définie en fin d'éxécution
-        return $this->redirectToRoute('adminArticleList') ;
+        //return $this->redirectToRoute('adminArticleList') ;
     }
 
     //DECLARATION DE LA METHODE DELETE
