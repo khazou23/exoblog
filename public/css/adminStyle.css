@@ -25,12 +25,14 @@
 .header{
     background-color: darkcyan;
     height: auto;
-    color: white;
     font-size: 2em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
+}
+.header p{
+    color: white;
 }
 .menu{
 
@@ -46,9 +48,10 @@
 }
 
 /**STYLE BODY**/
-a{
+.list a{
     text-decoration: none;
     font-size: 20px;
+    color: #FFFFFF;
 }
 h2{
     color: #20B2AA;
@@ -94,6 +97,7 @@ h2{
 /**STYLE ARTICLE**/
 .article{
     height: 15%;
+    width: 45%;
     margin: 20px;
     padding: 10px;
     border: solid 2px steelblue;
@@ -144,11 +148,22 @@ h2{
 .footer{
     background-color: darkcyan;
     height: auto;
-    color: white;
     font-size: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.footer p{
+    color: white;
+}
+
+/**CONNEXION **/
+.espace{
+    margin: 2em;
+}
+.
+.img{
+    width: 20%;
 }
 
 

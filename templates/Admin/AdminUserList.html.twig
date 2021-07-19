@@ -1,0 +1,29 @@
+{%  extends 'Admin/AdminBase.html.twig' %}
+
+{% block metaTitle %}
+    Liste des utilisateurs
+{% endblock metaTitle %}
+
+{#appel du block main #}
+{% block main %}
+    <main>
+        <h2>Liste des utilisateurs</h2>
+        {# Mise en place d une boucle FOR pour extraire tous les utilisateurs de la BDD #}
+        {% for user in users %}
+            <article>
+                <p>Identifiant de l'utilisateur : {{ user.email }}</p>
+                {% for role in user.roles %}
+              <p>Role de l'utilisateur : {{ role }}</p>
+                {% endfor %}
+            </article>
+        {% endfor %} {# cloture de la boucle for #}
+
+       <div class="sauvegarde">
+            <p>
+                <a href="{{ path('adminUserInsert' ) }}">Ajouter un nouvel utilisateur</a>
+            </p>
+        </div>
+    </main>
+{% endblock main %}
+
+

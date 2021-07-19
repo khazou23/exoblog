@@ -6,7 +6,10 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {# mise en place dun block pour le titre de la page  #}
-        <title>{% block metaTitle %}{% endblock metaTitle %}</title>
+        <title>
+            {% block metaTitle %}
+            {% endblock metaTitle %}
+        </title>
 
         <!--ajout de la jointure bbotstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -34,6 +37,9 @@
                     </li>
                     <li class="list">
                         <a href="{{ path('adminCategoriesList') }}">Gestion des categories</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ path('app_logout') }}">Deconnexion</a>
                     </li>
                 </ul>
             </nav>

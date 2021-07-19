@@ -1,0 +1,44 @@
+{%  extends 'Admin/AdminBase.html.twig' %}
+
+{% block main %}
+    <section>
+        <h1 class="ajout " >Ajouter un nouvel utilisateur </h1>
+        {# ouverture du form (equivalent a la balise form #}
+        {{ form_start(userForm) }}
+
+        {# elements de l identifiant  #}
+        <div class="form-group">
+            {# pour rendre et customizer la partir label du titre  #}
+            {{ form_label(userForm.email , 'Identifiant de  l\'utilisateur', {'label_attr':{'class':'style'}}) }}
+            {# pour rendre et customizer la partir input du titre  #}
+            {{ form_widget(userForm.email  , {'attr':{'class':'form-control'}}) }}
+            {# pour appliquer la contrainte décidée dans le fichier form #}
+            {{ form_errors(userForm.email ) }}
+        </div>
+
+        {# elements du mot de passe #}
+        <div class="form-group">
+            {{ form_label(userForm.password, 'MDP de l\'utilisateur', {'label_attr':{'class':'style'}}) }}
+            {{ form_widget(userForm.password, {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(userForm.password) }}
+        </div>
+
+        {# elements du role #}
+        <div class="form-group">
+            {{ form_label(userForm.roles, 'Role de l\'utilisateur', {'label_attr':{'class':'style'}}) }}
+            {{ form_widget(userForm.roles , {'attr':{'class':'form-control'}}) }}
+            {{ form_errors(userForm.roles) }}
+        </div>
+
+        {# elements sur le submit#}
+        <div class="form-group">
+            {{ form_widget(userForm.submit, {'attr': {'class': 'form-control btn'}, 'label': 'sauvegarder'}) }}
+        </div>
+
+        {# fermeture du form (equivalent a la balise form #}
+        {{ form_end(userForm) }}
+
+    </section>
+
+
+{% endblock %}

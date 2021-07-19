@@ -1,0 +1,25 @@
+{% extends 'Admin/AdminBase.html.twig' %}
+
+{% block metaTitle %}
+    Détails d'un utilisateur
+{% endblock %}
+
+{% block main %}
+<div >
+    <article class="categorie">
+        <p>Identidfiant : {{ user.email }}</p>
+        {#  <p>Role défini : {{ user.roles }}</p> #}
+        <p>Mot de passe : {{ user.password }} </p>
+
+        {# Lien pour accéder au delete ou a l upgrade #}
+        <div>
+            <a href="{{ path('adminUserDelete', {'id' : user.id} ) }}">Supprimer</a>
+        </div>
+        <div>
+            <a href="{{ path('adminUserUpdate', {'id' : user.id} ) }}">Modifier</a>
+        </div>
+
+{% endblock %}
+
+
+

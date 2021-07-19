@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminArticleController extends AbstractController
 {
@@ -22,7 +23,7 @@ class AdminArticleController extends AbstractController
      * @Route("/admin/articles" , name="adminArticleList")
      */
     //utilisation de l autowire pour instancier la classe repository pour pouvoir faire mes requête sql
-    public function articleList(ArticleRepository $ArticleRepository)
+    public function articleList(ArticleRepository $ArticleRepository )
     {
         //instruction de requete
         $articles = $ArticleRepository->findAll();
@@ -39,7 +40,8 @@ class AdminArticleController extends AbstractController
         EntityManagerInterface $entityManager,
         CategoryRepository $categoryRepository,
         TagRepository $tagRepository ,
-        Request $request)
+        Request $request,
+        SluggerInterface $slugger)
     {
         //Création d une variable qui instancie l entité Article
         //pour créer un nouvel article dans la bdd (ei un nouvel enregistrement dans la table visée
@@ -57,6 +59,29 @@ class AdminArticleController extends AbstractController
         // si les deux conditions sont ok alors l enregistrement en bdd s effectue
         if($articleForm->isSubmitted() && $articleForm->isValid() )
         {
+            // Recupération de l imgae téléchargée avec la methode get
+            $imageFile = $articleForm->get('image')->getData();
+
+            //mise en place d une condition
+            // pour définir le comportement en cas d upload de fichier
+            if ($imageFile){
+                //creation d'un nom unique à partir du nom de base de l img
+                // pour ne pas avoir de conflit en bdd
+                // usage de pathinfo pour trouver le chemin dans le systeme
+                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME );
+                //utilisation de slug
+                // pour enlever les possibles caracteres speciaux lors du renommage unique de l img
+                $safeFileName = $slugger->slug($originalFileName);
+                // Ajout d un id unique avec uniqid au nom de l img
+                $newFileName = $safeFileName.'_'.uniqid().'.'.$imageFile->guessExtension();
+
+                //Deplacement de l image dans un dossier dans Public
+                $imageFile->move($this-> getParameter('upload'),$newFileName );
+
+                //avec la methode setter: ajout de l image dans l entity article
+                $article->setImage($newFileName);
+            }
+
             $entityManager->persist($article);
             $entityManager->flush();
 

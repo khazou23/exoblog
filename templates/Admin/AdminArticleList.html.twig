@@ -35,6 +35,12 @@
 
                 <p class="taille">Résumé : {{ article.content}} </p>
 
+                {# Affichage d une image uploade  #}
+                <div>
+                    <img src="{{ asset('upload/'~ article.image) }}" alt="bouh" class="resp img">
+                </div>
+
+
                 {# Lien pour accéder à delete ou upgrade #}
                 <section class="choix">
                     <div class="bouton left">

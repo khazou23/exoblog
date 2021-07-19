@@ -44,6 +44,13 @@
                         {{ form_errors(articleForm.tag) }}
                     </div>
 
+                    {# elements sur les fichiers images#}
+                    <div class="form-group">
+                        {{ form_label(articleForm.image , 'Image à télécharger', {'label_attr':{'class':'style'}}) }}
+                        {{ form_widget(articleForm.image, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(articleForm.image) }}
+                    </div>
+
                     {# elements sur la publication #}
                     <div class="form-group">
                         {{ form_label(articleForm.isPublished , 'Publication de l\'article', {'label_attr':{'class':'style'}}) }}

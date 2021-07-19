@@ -60,6 +60,13 @@ class article
      */
     private $tag;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+
+
 //DECLARATION DES GETTERS ET SETTERS
 //A NOTER : pas de setter pour l id car pas necessaire
     /**
@@ -164,6 +171,30 @@ class article
     public function setTag($tag): void
     {
         $this->tag = $tag;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getNo(): ?string
+    {
+        return $this->no;
+    }
+
+    public function setNo(string $no): self
+    {
+        $this->no = $no;
+
+        return $this;
     }
 
 
